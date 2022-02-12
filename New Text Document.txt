@@ -1,0 +1,18 @@
+LINE		QARKU		KONEKTORI		DEFECT CODE REJECT			LIDERI ASSY		LIDEDI SUB		MASA
+NX4e MAIN						Vendosje e gabuar 			BSH	NX4e MAIN	MB	NX4e MAIN	REFUZIM
+NQ5e FLOOR						Mungese qarku			AM	NX4e MAIN	MZ	NQ5e FLOOR	RIPARIM
+						Nuk ka kontakt			GP	NX4e MAIN	AM	NX4e MAIN	
+						Fije ne fashim			MR	NX4e MAIN	MD	NQ5e FLOOR	
+						Mungese vule			GM	NX4e MAIN			
+						Vule e demtuar			DH	NX4e MAIN			
+						Konektor i gabuar			VXH	NQ5e FLOOR			
+						Konektor i demtuar			EL	NQ5e FLOOR			
+						Terminal i gabuar			AK	NQ5e FLOOR			
+						Terminal i demtuar			EK	NQ5e FLOOR			
+						Fije shtese			ELL	NQ5e FLOOR			
+						Presime Boshe			BM	NQ5e FLOOR			
+						Mungese konektori			SD	NQ5e FLOOR			
+						SHORT			AD	NQ5e FLOOR			
+						EXTRA			FB	NQ5e FLOOR			
+						CLICK							
+						HERMETIK							
