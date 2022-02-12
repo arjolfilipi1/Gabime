@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+<form >
+  <div class="form-group">
+    <label for="cir">ID e Operatorit</label>
+    <input   class="form-control" name=id id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="12000" value="{{slug}}">
+  </div>
+  <div class="form-group form-check">
+  <button type="submit" onclick=post() class="btn btn-primary">Regjistro</button>
+  </form>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+
+function post(){
+	console.log($("#exampleInputEmail1").serialize());
+    var dataString =  $('input[name=cir]').val();
+    window.location.replace("r/"+dataString.substring(1));
+     
+}
+
+{% endblock script %}
