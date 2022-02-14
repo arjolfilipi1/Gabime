@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView,DetailView
-from .models import Gab,Per
+from .models import Gab,Per,Op
 from django.db.models import Count
 
 from django.views.decorators.csrf import csrf_exempt
@@ -23,18 +23,25 @@ def Gjej(request):
     return render(request, 'info.html', context)
 @csrf_exempt    
 def Regis(request,*args):
-    if request.user.is_authenticated:
-        return render(request, 'log.html')
-    else:
+    oid = request.GET.get("id")
+    test = (Op.objects.filter(num=oid).exists())
+    if oid=='':
+        if test:
+            return render(request, 'log.html',context={'e':test})
+        else:
+            return render(request, 'log.html',context={'e':test})
+    elif test:
+        op = Op.objects.get(num=oid)
+        
         Last = Gab.objects.order_by('-id')[:5]
         context = {
-            'Last':Last,
+            'Last':Last,'id':oid
                 }
         slug = (request.GET.get(""))
         if request.method == 'GET':
             d = (request.GET.get("flexRadioDefault"))         
             slug = (request.GET.get("cir"))
-            context = {'Last':Last,'slug':slug}
+            context = {'Last':Last,'slug':slug,'id':oid}
         
             if slug:
                 try:
@@ -42,19 +49,22 @@ def Regis(request,*args):
                     if d:
                         Gab.objects.create(cir=slug,grup=se.grup,pos=d)
                         Last = Gab.objects.order_by('-id')[:5]
-                        context = {'Last':Last,}
+                        context = {'Last':Last,'id':oid}
                         return render(request, 'info.html', context)
                 except:
                     se= False
                 if se:
-                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end
+                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end,'id':oid
                         }
                 else:
                     context = {
-                'slug':slug,'Last':Last,
+                'slug':slug,'Last':Last,'id':oid
                 }
         
         return render(request, 'info.html', context)
+    else:
+        print("here")
+        return render(request, 'log.html',context={'e':True})
 
 
 def FormView(request):

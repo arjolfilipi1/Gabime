@@ -10,6 +10,12 @@ class Per(models.Model):
     end_r = models.CharField(max_length=200)
 
 
+class Op(models.Model):
+    num = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    eq = models.CharField(max_length=4)
+
+
 class Gab(models.Model):
     cir = models.CharField(max_length=200)
     grup = models.CharField(max_length=200)
