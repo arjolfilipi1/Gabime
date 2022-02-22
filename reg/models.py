@@ -21,6 +21,10 @@ class Gab(models.Model):
     grup = models.CharField(max_length=200)
     pos = models.CharField(max_length=200)
     cd = models.DateTimeField(auto_now=True)
+    defect_code = models.CharField(max_length=30)
+    lider_assy = models.CharField(max_length=200)
+    lider_sub = models.CharField(max_length=200)
+    masa = models.CharField(max_length=200)
 
 
 class Opt(models.Model):

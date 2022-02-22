@@ -41,7 +41,7 @@ def Regis(request,*args):
         if request.method == 'GET':
             d = (request.GET.get("flexRadioDefault"))         
             slug = (request.GET.get("cir"))
-            context = {'Last':Last,'slug':slug,'id':oid}
+            context = {'Last':Last,'slug':slug,'id':oid,'op':op}
         
             if slug:
                 try:
@@ -49,21 +49,20 @@ def Regis(request,*args):
                     if d:
                         Gab.objects.create(cir=slug,grup=se.grup,pos=d)
                         Last = Gab.objects.order_by('-id')[:5]
-                        context = {'Last':Last,'id':oid}
+                        context = {'Last':Last,'id':oid,'op':op}
                         return render(request, 'info.html', context)
                 except:
                     se= False
                 if se:
-                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end,'id':oid
+                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end,'id':oid,'op':op
                         }
                 else:
                     context = {
-                'slug':slug,'Last':Last,'id':oid
+                'slug':slug,'Last':Last,'id':oid,'op':op
                 }
         
         return render(request, 'info.html', context)
     else:
-        print("here")
         return render(request, 'log.html',context={'e':True})
 
 

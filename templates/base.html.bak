@@ -20,7 +20,7 @@
   <link href="{% static 'css/style.min.css' %}   " rel="stylesheet">
   <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script src="{% static 'js/jquery-ui.js' %}"></script>
-<script src="{% static 'js/wire.js' %}"></script>
+script src="{% static 'js/wire.js' %}"></script>
   {% block extrahead %}
   
   {% endblock extrahead %}
