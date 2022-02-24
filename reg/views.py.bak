@@ -39,7 +39,7 @@ def Regis(request,*args):
                 }
         slug = (request.GET.get(""))
         if request.method == 'GET':
-            print(request.GET.get("assy"))
+            print(request.GET.get("assy))
             d = (request.GET.get("flexRadioDefault"))         
             slug = (request.GET.get("cir"))
             context = {'Last':Last,'slug':slug,'id':oid,'op':op}

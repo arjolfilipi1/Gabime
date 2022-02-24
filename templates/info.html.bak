@@ -17,7 +17,7 @@
 
 {% if start %}   
 <div id="radio1" class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="con" value="{{start}}">
+  <input class="form-check-input" type="radio" name="1" id="con" value="{{start}}">
   <label class="form-check-label" for="flexRadioDefault1">
     {{start}}
   </label>
@@ -25,7 +25,7 @@
 {% endif %}
 {% if end %}
 <div id="radio2" class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="con" checked value="{{end}}">
+  <input class="form-check-input" type="radio" name="1" id="con" checked value="{{end}}">
   <label class="form-check-label" for="flexRadioDefault2">
     {{end}}
   </label>
@@ -35,11 +35,10 @@
 {% if start or end%}
 <div class="container">
 
-<input   class="form-control " name=defekt id="defekt" aria-describedby="emailHelp" value="placeholder">
+<input   class="form-control d-none" name=defekt id="defekt" aria-describedby="emailHelp" value="Vendosje e gabuar">
 <label class="form-check-label" for="DEFECT">Kodi i difektit</label>
 <select  id="defekt_s" class="form-select" aria-label="Default select example">
 
-  <option value="Vendosje e gabuar" >Vendosje e gabuar </option>
 	<option value="Vendosje e gabuar">Vendosje e gabuar </option>
 	<option value="Mungese qarku">Mungese qarku</option>
 	<option value="Nuk ka kontakt">Nuk ka kontakt</option>
@@ -61,16 +60,22 @@
 </div>
 <div class="container">
 <label class="form-check-label" for="ASSY">Lideri i ASSY</label>
-<select class="form-select" aria-label="Default select example">
+
 	{% if op.eq == 'NX4e' %}
+	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="BSH">
+	<select class="form-select" id="assy_s" aria-label="Default select example">
 	<option value="BSH">BSH</option>
 	<option value="AM">AM</option>
 	<option value="GP">GP</option>
 	<option value="MR">MR</option>
 	<option value="GM">GM</option>
 	<option value="DH">DH</option>
+	</select>
 	{% endif %}
 	{% if op.eq == 'NQ5e' %}
+	
+	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="VXH">
+	<select class="form-select" id="assy_s" aria-label="Default select example">
 	<option value="VXH">VXH</option>
 	<option value="EL">EL</option>
 	<option value="AK">AK</option>
@@ -80,30 +85,35 @@
 	<option value="SD">SD</option>
 	<option value="AD">AD</option>
 	<option value="FB">FB</option>
+	</select>
 	{% endif %}
-</select>
+
 </div>
 
 
 <div class="container">
 <label class="form-check-label" for="ASSY">Lideri i SUB</label>
-
-<select class="form-select" aria-label="Default select example">
 	{% if op.eq == 'NX4e' %}
+	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="VXH">
+	<select class="form-select" aria-label="Default select example">
 	<option value="MB">MB</option>
 	<option value="AM">AM</option>
+	</select>
 	{% endif %}
 	{% if op.eq == 'NQ5e' %}
+	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="MZ">
+	<select class="form-select" id="sub_s" aria-label="Default select example">
 	<option value="MZ">MZ</option>
 	<option value="MD">MD</option>
+	</select>
 	{% endif %}
-</select>
 </div>
 
 <div class="container">
 <label class="form-check-label" for="ASSY">Veprimi</label>
+<input   class="form-control d-none" name=masa id="masa" aria-describedby="emailHelp" value="Refuzim">
+<select class="form-select" id="masa_s" aria-label="Default select example">
 
-<select class="form-select" aria-label="Default select example">
 	<option value="Refuzim">Refuzim</option>
 	<option value="Riparim">Riparim</option>
 </select>
@@ -171,7 +181,19 @@ function post(){
 $(document).ready(function () {
     $('#defekt_s').on('change', function () {
 	var s = ($('#defekt_s').val());
-      alert($('#defekt').value=s);
+	document.getElementById("defekt").value  = s;
+    });
+	$('#assy_s').on('change', function () {
+	var q = ($('#assy_s').val());
+	document.getElementById("assy").value  = q;
+    });
+	$('#sub_s').on('change', function () {
+	var w = ($('#sub_s').val());
+	document.getElementById("sub").value  = w;
+    });
+	$('#masa_s').on('change', function () {
+	var s = ($('#masa_s').val());
+	document.getElementById("masa").value  = s;
     });
   });
   $( function() {
