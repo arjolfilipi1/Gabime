@@ -17,7 +17,7 @@
 
 {% if start %}   
 <div id="radio1" class="form-check">
-  <input class="form-check-input" type="radio" name="1" id="con" value="{{start}}">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="con" value="{{start}}">
   <label class="form-check-label" for="flexRadioDefault1">
     {{start}}
   </label>
@@ -25,7 +25,7 @@
 {% endif %}
 {% if end %}
 <div id="radio2" class="form-check">
-  <input class="form-check-input" type="radio" name="1" id="con" checked value="{{end}}">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="con" checked value="{{end}}">
   <label class="form-check-label" for="flexRadioDefault2">
     {{end}}
   </label>
@@ -61,7 +61,7 @@
 <div class="container">
 <label class="form-check-label" for="ASSY">Lideri i ASSY</label>
 
-	{% if op.eq == 'NX4e' %}
+	{% if op.eq == 'NX4e' or "O" %}
 	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="BSH">
 	<select class="form-select" id="assy_s" aria-label="Default select example">
 	<option value="BSH">BSH</option>
@@ -72,7 +72,7 @@
 	<option value="DH">DH</option>
 	</select>
 	{% endif %}
-	{% if op.eq == 'NQ5e' %}
+	{% if op.eq == 'NQ5e' or "O"  %}
 	
 	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="VXH">
 	<select class="form-select" id="assy_s" aria-label="Default select example">
@@ -93,14 +93,14 @@
 
 <div class="container">
 <label class="form-check-label" for="ASSY">Lideri i SUB</label>
-	{% if op.eq == 'NX4e' %}
+	{% if op.eq == 'NX4e' or "O"  %}
 	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="VXH">
 	<select class="form-select" aria-label="Default select example">
 	<option value="MB">MB</option>
 	<option value="AM">AM</option>
 	</select>
 	{% endif %}
-	{% if op.eq == 'NQ5e' %}
+	{% if op.eq == 'NQ5e' or "O"  %}
 	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="MZ">
 	<select class="form-select" id="sub_s" aria-label="Default select example">
 	<option value="MZ">MZ</option>
