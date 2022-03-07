@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView,DetailView
 from .models import Gab,Per,Op
 from django.db.models import Count
-
+import datetime
 from django.views.decorators.csrf import csrf_exempt
 def index(request):
     all = Gab.objects.all()
@@ -39,16 +39,21 @@ def Regis(request,*args):
                 }
         slug = (request.GET.get(""))
         if request.method == 'GET':
-            print(request.GET.get("assy"))
-            d = (request.GET.get("flexRadioDefault"))         
+            d = (request.GET.get("flexRadioDefault"))
+            defekt= request.GET.get("defekt")
+            assy = request.GET.get("assy")
+            sub = request.GET.get("sub")
+            masa = request.GET.get("masa")
             slug = (request.GET.get("cir"))
+            defekt = request.GET.get("defekt")
+            sub = request.GET.get("sub")
             context = {'Last':Last,'slug':slug,'id':oid,'op':op}
         
             if slug:
                 try:
                     se= Per.objects.get(cir=slug)
                     if d:
-                        Gab.objects.create(cir=slug,grup=se.grup,pos=d)
+                        Gab.objects.create(cir=slug,grup=se.grup,pos=d,defect_code=defekt,lider_assy= assy,lider_sub=sub,masa= masa,cd= datetime.datetime.now())
                         Last = Gab.objects.order_by('-id')[:5]
                         context = {'Last':Last,'id':oid,'op':op}
                         return render(request, 'info.html', context)

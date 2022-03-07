@@ -8,7 +8,7 @@
     <label for="cir">Circuiti</label>
     <input   class="form-control" name=cir id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Teli" 
 	{% if slug %}
-	value="{{slug}}"
+	value="{{slug}}"  readonly
 	{% endif %}
 	>
 	<input   class="form-control d-none" name=id id="id" aria-describedby="emailHelp" placeholder="12000" value="{{id}}">
@@ -61,7 +61,7 @@
 <div class="container">
 <label class="form-check-label" for="ASSY">Lideri i ASSY</label>
 
-	{% if op.eq == 'NX4e' or "O" %}
+	{% if op.eq == 'NX4e'  %}
 	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="BSH">
 	<select class="form-select" id="assy_s" aria-label="Default select example">
 	<option value="BSH">BSH</option>
@@ -72,7 +72,7 @@
 	<option value="DH">DH</option>
 	</select>
 	{% endif %}
-	{% if op.eq == 'NQ5e' or "O"  %}
+	{% if op.eq == 'NQ5e'  %}
 	
 	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="VXH">
 	<select class="form-select" id="assy_s" aria-label="Default select example">
@@ -87,24 +87,52 @@
 	<option value="FB">FB</option>
 	</select>
 	{% endif %}
+	{% if op.eq == 'O'  %}
+	<input   class="form-control d-none" name=assy id="assy" aria-describedby="emailHelp" value="BSH">
+	<select class="form-select" id="assy_s" aria-label="Default select example">
+	<option value="BSH">BSH</option>
+	<option value="AM">AM</option>
+	<option value="GP">GP</option>
+	<option value="MR">MR</option>
+	<option value="GM">GM</option>
+	<option value="DH">DH</option>
+	<option value="VXH">VXH</option>
+	<option value="EL">EL</option>
+	<option value="AK">AK</option>
+	<option value="EK">EK</option>
+	<option value="ELL">ELL</option>
+	<option value="BM">BM</option>
+	<option value="SD">SD</option>
+	<option value="AD">AD</option>
+	<option value="FB">FB</option>
+	{% endif %}
 
 </div>
 
 
 <div class="container">
 <label class="form-check-label" for="sub">Lideri i SUB</label>
-	{% if op.eq == 'NX4e' or "O"  %}
+	{% if op.eq == 'NX4e' %}
 	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="VXH">
 	<select class="form-select" aria-label="Default select example">
 	<option value="MB">MB</option>
 	<option value="AM">AM</option>
 	</select>
 	{% endif %}
-	{% if op.eq == 'NQ5e' or "O"  %}
+	{% if op.eq == 'NQ5e' %}
 	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="MZ">
 	<select class="form-select" id="sub_s" aria-label="Default select example">
 	<option value="MZ">MZ</option>
 	<option value="MD">MD</option>
+	</select>
+	{% endif %}
+	{% if op.eq == 'O' %}
+	<input   class="form-control d-none" name=sub id="sub" aria-describedby="emailHelp" value="MZ">
+	<select class="form-select" id="sub_s" aria-label="Default select example">
+	<option value="MZ">MZ</option>
+	<option value="MD">MD</option>
+	<option value="MB">MB</option>
+	<option value="AM">AM</option>
 	</select>
 	{% endif %}
 </div>
@@ -135,6 +163,9 @@
         <th class="btn-warning">Grupi</th>
         <th class="btn-secondary">Konektori</th>
         <th class="btn-danger">Koha</th>
+		<th class="btn-danger">Defekti</th>
+		<th class="btn-danger">Assy</th>
+		<th class="btn-danger">SUB</th>
       </tr>
     </thead>
     <tbody>
@@ -147,6 +178,9 @@
 	
 	<td class="btn-secondary">{{article.pos }}</td>
         <td>{{ article.cd}}</td>
+		<td>{{ article.defect_code}}</td>
+		<td>{{ article.lider_assy}}</td>
+		<td>{{ article.lider_sub}}</td>
       </tr>
       {%endfor%}
       
@@ -169,6 +203,9 @@ availableTags=NX4e;
 };
 if('{{op.eq}}'=="NQ5e"){
 availableTags=NQ5e;
+};
+if('{{op.eq}}'=='O'){
+availableTags=wire;
 };
 };
 function post(){
