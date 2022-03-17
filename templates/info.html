@@ -1,16 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container w-100">
 <div class="container "> <a href="/?id={{op.num}}"><h3 class=" btn-success  text-center"">{{op.eq}}</h3> </div></a>
 <form >
   <div class="form-group">
+  <label for="lloj">Tipi i pajisjes:</label>
+  <select name="lloj" id="l" default="NX4e_HEV">
+  {% if op.eq == 'NX4e'  %}
+    <option value="NX4e"  >NX4e</option>
+    <option value="NX4e_HEV">NX4e_HEV</option>
+	{%endif%}
+	{% if op.eq == 'NQ5e'  %}
+    <option value="NQ5e">NQ5e</option>
+    <option value="NQ5e_hev">NQ5e_hev</option>
+	{%endif%}
+	{% if op.eq == 'O'  %}
+	<option value="NX4e"  >NX4e</option>
+    <option value="NX4e_HEV">NX4e_HEV</option>
+	<option value="NQ5e">NQ5e</option>
+    <option value="NQ5e_hev">NQ5e_hev</option>
+	{%endif%}
+  </select>
+  <br>
     <label for="cir">Circuiti</label>
     <input   class="form-control" name=cir id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Teli" 
 	{% if slug %}
 	value="{{slug}}"  readonly
 	{% endif %}
 	>
+	<label for="lot">Loti</label>
+	<input   class="form-control " name=lot id="lot" aria-describedby="emailHelp" placeholder="34000000" value="{{lot}}" required>
+	<label for="ac_code">Loti</label>
+	<input   class="form-control " name=ac_code id="ac_code" aria-describedby="emailHelp" placeholder="AC000000" value="{{ac_code}}" required>
 	<input   class="form-control d-none" name=id id="id" aria-describedby="emailHelp" placeholder="12000" value="{{id}}">
   </div>
  <div class="form-group container">
@@ -150,8 +172,9 @@
 
 </div>
   </div>
-  <div class="form-group form-check">
-  <button type="submit"  class="btn btn-primary">Ploteso</button>
+  <div class="form-group form-check d-flex justify-content-center">
+  <br>
+  <button type="submit"  class="btn btn-primary ">Ploteso</button>
 </form>
 </div>
 <div class="container">
@@ -160,6 +183,8 @@
     <thead>
       <tr>
         <th class="btn-primary">Teli</th>
+		<th class="btn-danger">Loti</th>
+		<th class="btn-warning">Lloji</th>
         <th class="btn-warning">Grupi</th>
         <th class="btn-secondary">Konektori</th>
         <th class="btn-danger">Koha</th>
@@ -174,6 +199,8 @@
       
       <tr>
         <td>{{ article.cir }}</td>
+		<td>{{ article.lot }}</td>
+		<td>{{ article.eq }}</td>
         <td class="btn btn-warning">{{article.grup }}</td>
 	
 	<td class="btn-secondary">{{article.pos }}</td>
@@ -189,7 +216,7 @@
     </div>
 
 <div class="container">
-<a class="btn-success" href='r'>Shkarko</a>
+<a class="btn-success" href='r?id={{op.num}}'>Shkarko</a>
 </div>
 
 
@@ -198,6 +225,7 @@
 {% block script %}
 <script>
 if({{id}}){
+
 if('{{op.eq}}'=="NX4e"){
 availableTags=NX4e;
 };
@@ -208,12 +236,33 @@ if('{{op.eq}}'=='O'){
 availableTags=wire;
 };
 };
-function post(){
-	console.log($("#exampleInputEmail1").serialize());
-    var dataString =  $('input[name=cir]').val();
-    window.location.replace("r/"+dataString.substring(1));
-     
+{% if op.eq == 'NX4e'  %}
+var dict = {
+  "NX4e":0,
+  "NX4e_HEV":1,
+  "NQ5e":2,
+  "NQ5e_hev":3
 };
+	{%endif%}
+	{% if op.eq == 'NQ5e'  %}
+ 	var dict = {
+  "NQ5e":0,
+  "NQ5e_hev":1
+};
+	{%endif%}
+	{% if op.eq == 'O'  %}
+	var dict = {
+  "NX4e":0,
+  "NX4e_HEV":1,
+  "NQ5e":2,
+  "NQ5e_hev":3
+};
+	{%endif%}
+
+
+var lloj = "{{lloj}}";
+document.getElementById("l").selectedIndex = dict[lloj];
+
 
 $(document).ready(function () {
     $('#defekt_s').on('change', function () {
@@ -235,22 +284,13 @@ $(document).ready(function () {
   });
   $( function() {
     
-$( "#exampleInputEmail1t" ).keypress(function() {
-  console.log($( "#exampleInputEmail1").serialize());
-});
-
-$('#exampleInputEmail1t').blur(function()
-{
-    if( $(this).val().length === 0 ) {
-        console.log('warning');
-    }
-});
+//$('#exampleInputEmail1t').autocomplete('setOptions', availableTags);
+$( "#exampleInputEmail1" ).autocomplete({source:availableTags});
+//$('#exampleInputEmail1t').blur(function(){    if( $(this).val().length === 0 ) {        console.log('warning');    }});
 
 
-$( "#exampleInputEmail1" ).autocomplete({
-      source: availableTags
-    });
-  } );
+//$( "#exampleInputEmail1" ).autocomplete({      source:availableTags    });  
+} );
 
 
   </script>

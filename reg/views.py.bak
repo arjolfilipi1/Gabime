@@ -3,14 +3,37 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView,DetailView
 from .models import Gab,Per,Op
 from django.db.models import Count
-
+import datetime
 from django.views.decorators.csrf import csrf_exempt
 def index(request):
-    all = Gab.objects.all()
+    oid = request.GET.get("id")
+    p = Per.objects.all()
+    test = (Op.objects.filter(num=oid).exists())
+    op = Op.objects.get(num=oid)
+    format1 = '%m/%d/%Y'
+    s =request.GET.get("start")
+    e =request.GET.get("end")
+    if (s and e):
+        start =datetime.datetime.strptime( s, format1)
+        end = datetime.datetime.strptime(e, format1)+ datetime.timedelta(days=1)
+        print(end)
+        Last = Gab.objects.filter(cd__range=[start, end])[::-1]
+        context={'op':op,'id':oid,'Last':Last,'start':s,'end':e,'p':p}
+    else:
+        
     
-
-    return HttpResponse("Hello, world. You're at the polls index.")
+    #print(Last)
+   #l = []
+   #for n in l:
+    #   Per.objects.get_or_create(cir=n[0],grup=n[1],start = n[2],start_r = n[3],end=n[4],end_r=n[5],eq=n[6])
+        context={'op':op,'id':oid,'start':s,'end':e}
+    return render(request, 'down.html',context)
 @csrf_exempt
+def Service(request):
+    a = ['120001','Klodiana  Kordhishta','O'],['120006','Grejsi Lizaj','O'],['120043','Kejdi Likaj','O'],['120044','Xhulio Bushi','O'],['120045','Denisa Llazi','O'],['120046','Mirela Myrtaj','O'],['120047','Ilia Cuko','O'],['120048','Aurora Fejzulla','O'],['120136','Ardian Morati','O'],['120123','Marjeta Yzeiri','O'],['120124','Entela  Morati','O'],['120125','Vojsava Llambro','O'],['120126','Lindita Ago','O'],['120127','Arenc Jahaj','O'],['120128','Amarildo Xhafa','O'],['120351','Blerta Alushaj','O'],['120353','Klejdjo Ngjela','O'],['120354','Fabiano Grembi','O'],['120355','Ervista Loshi','O'],['120356','Ergin Bulla','O'],['120357','Katerina Shqepa','O'],['120502','Florenc Hysenshahaj','O'],['120564','Xhuljo Likaj','O'],['120448','Albana Cela','O'],['120449','Edlira Nikollau','O'],['120503','Nora Metushi','O'],['120508','Alma Proko','O'],['120560','Sidorela Elezi','O'],['120511','Anxhelina Fejzulla','O'],['120515','Bledar Zykaj','O'],['120553','Olsi Kola','O'],['120237','Fatos Dervishaj','O'],['120389','Liza Bako','O'],['120441','Stela Cuka','O'],['120603','Xhoni Shperdheja','O'],['120358','Stela Cuka','O'],['120450','Aldisa Buzi','O'],['120522','Elvana Nura','O'],['120632','Ani Sotiri','O'],['120687','Alesjo Hysi','O'],['120777','Nertila Murataj','O'],['120801','Kristina Marku','O'],['120810','Andia Iliazi','O'],['120811','Klaudio Smaka','O'],['120826','Sotiraq Topi','O'],['120832','Pashke Gjeloshgjokaj','O'],['120857','Orinda Kanaj','O'],['120870','Andi Beqiraj','O'],['120876','Erjola Saliaj','O'],['120494','Bajame Thomo','O'],['120405','Aldisa Buzi','O'],['120576','Elona Haxhiaj','O'],['120524','Enrik Koci','O'],['120647','Marjus Bregu','O'],['120912','Geraldo Llanaj','O'],['120902','Eneida Kasaj','O'],['120890','Agrilda Hazizaj','O'],['120904','Adrina Jonuzi','O'],['120935','Emanuela Sherifi','O'],['120959','Erald Baro','O'],['120942','Kejsi Kumanaku','O'],['120908','Hurma Ceranaku','O'],['120889','Soida Doraci','O'],['120894','Shpresilda Gjata','O'],['120892','Evgjeni Rama','O'],['120900','Rozeta Mehmetaj','O'],['120950','Dionis Metaj','O'],['120825','Emiljo Sollaku','O'],['120352','Omela Xhakolli','O'],['120983','Anxhela Azizaj','O'],['120537','Krenar Bako','O'],['120578','Eraldo Merkaj','O'],['120871','Edlira Likaj','O'],['120591','Lumturi Nika','O'],['120640','Hetem Ferhataj','O'],['120513','Artur Gremi','O'],['120714','Edison hysenaj','O'],['120985','Barjam Myrtaj','O'],['120719','Xhesjon Dosti','O'],['121354','Llambro Pecini','O'],['121285','Endrit Cuko','O'],['120848','Alban Helshani','O'],['121194','Qemal Hoxha','O'],['121369','Flavio Muskaj','O'],['120699','Reonald Poshnjari','O'],['121291','Ergest Skendaj','O'],['120118','Enkeleda Malaj','O'],['121022','Marsela Skenderaj','O'],['120662','Elvi Monka','O'],['120563','Vjollca Tole','O'],['121263','Dashmir Gjojdeshi','O'],['120523','Endri Mucaj','O'],['121408','Klodiana Vasili','O'],['121387','Rejdi Cela','O'],['121392','Edlira Kumanaku','O'],['121399','Arbri Hoxha','O'],['120965','Zylal Cekaj','O'],['120941','Klaudio Beqiri','O'],['121450','Lisjon Azizaj','O'],['121424','Seldi Rista','O'],['120657','Elsa Ramaj','O'],['120620','Pamela Sinaj','O'],['120612','Bleona Zgjana','O'],['121410','Migena Buzi','O'],['121316','Imelda Bualli','O'],['120968','Telo Duraj','O'],['121012','Iva Mertiri','O'],['121310','Aida Zanaj','O'],['121417','Klaudia Kapaj','O'],['121402','Besmir Cala','O'],['121367','Brunilda Shahaj','O'],['121245','Stelina Dine','O'],['121409','Mirela Vasili','O'],['121319','Habibe Grembi','O'],['121134','Gentjana Begaj','O'],['121413','Fatjona Zeneli','O'],['121608','Dorian Gjeka','O'],['121472','Enkelejda Mala','O'],['121253','Enerjeta Sulkaj','O'],['121032','Kristian Koci','O'],['121008','Xhuljan Licaj','O'],['121407','Karafile Shabani','O'],['121425','Armando Dhijari','O'],['121952','Enea Ahmetaj','O']
+    for i in a:
+        Op.objects.create(num = i[0],name = i[1],eq=i[2])
+    return HttpResponseRedirect("u krye")
 def Gjej(request):
     print('gjej')
     Last = Gab.objects.order_by('-id')[:5]
@@ -47,24 +70,27 @@ def Regis(request,*args):
             slug = (request.GET.get("cir"))
             defekt = request.GET.get("defekt")
             sub = request.GET.get("sub")
+            lot = request.GET.get("lot")
+            ac_code = request.GET.get("ac_code")
             context = {'Last':Last,'slug':slug,'id':oid,'op':op}
+            lloj = request.GET.get("lloj")
         
             if slug:
                 try:
-                    se= Per.objects.get(cir=slug)
+                    se= Per.objects.get(cir=slug,eq=lloj)
                     if d:
-                        Gab.objects.create(cir=slug,grup=se.grup,pos=d,defect_code=defekt,lider_assy= assy,lider_sub=sub,masa= masa)
+                        Gab.objects.create(cir=slug,lot = lot,grup=se.grup,pos=d,defect_code=defekt,oid=oid,lider_assy= assy,lider_sub=sub,masa= masa,cd= datetime.datetime.now(),eq=lloj)
                         Last = Gab.objects.order_by('-id')[:5]
-                        context = {'Last':Last,'id':oid,'op':op}
+                        context = {'Last':Last,'id':oid,'op':op,'lloj':lloj,'lot':lot}
                         return render(request, 'info.html', context)
                 except:
                     se= False
                 if se:
-                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end,'id':oid,'op':op
+                    context = {'slug':slug,'Last':Last,'start':se.start,"end":se.end,'id':oid,'op':op,'lloj':lloj,'lot':lot,'ac_code':ac_code
                         }
                 else:
                     context = {
-                'slug':slug,'Last':Last,'id':oid,'op':op
+                'slug':slug,'Last':Last,'id':oid,'op':op,'lloj':lloj,'lot':lot
                 }
         
         return render(request, 'info.html', context)

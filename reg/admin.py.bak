@@ -4,11 +4,10 @@ from .models import Per,Gab,Opt,Op
 
 admin.site.register(Opt)
 admin.site.register(Op)
-
+admin.site.register(Per,PerAdmin)
 class PerAdmin(admin.ModelAdmin):
     search_fields = ['cir' ]
     pass
-admin.site.register(Per,PerAdmin)
 class BookAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = ('cir', 'grup', 'pos', 'cd')
 
